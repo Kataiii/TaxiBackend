@@ -64,6 +64,368 @@
                 }
             }
         },
+        "/api/clients": {
+            "get": {
+                "tags": [
+                    "clients"
+                ],
+                "summary": "Get list of clients",
+                "operationId": "413c12320d4121431e38339f45ecaa7c",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized user"
+                    },
+                    "400": {
+                        "description": "Clients isn't found"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/clients/{id}": {
+            "get": {
+                "tags": [
+                    "clients"
+                ],
+                "summary": "Get client by id",
+                "description": "Get client by id",
+                "operationId": "getClient",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of client",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "client": {
+                                            "$ref": "#/components/schemas/ClientResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Client is not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Client is not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "clients"
+                ],
+                "summary": "Create client",
+                "description": "Create new client",
+                "operationId": "createClient",
+                "requestBody": {
+                    "description": "Send data to create a new client",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "user": {
+                                        "$ref": "#/components/schemas/ClientCreateRequest"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "task": {
+                                            "$ref": "#/components/schemas/ClientResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error when creating client",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error when creating client"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "clients"
+                ],
+                "summary": "Delete client by id",
+                "description": "Delete client by id",
+                "operationId": "deleteClient",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of client",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "client": {
+                                            "$ref": "#/components/schemas/ClientResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Client is not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Client is not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "clients"
+                ],
+                "summary": "Update client",
+                "description": "Update client",
+                "operationId": "updateClient",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of client",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Send data to update a client",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "client": {
+                                        "$ref": "#/components/schemas/ClientUpdateRequest"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "client": {
+                                            "$ref": "#/components/schemas/ClientResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Client is not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Client is not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error when updating client",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error when updating client"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
         "/api/users": {
             "get": {
                 "tags": [
@@ -429,6 +791,113 @@
     },
     "components": {
         "schemas": {
+            "ClientCreateRequest": {
+                "required": [
+                    "firstname",
+                    "secondname",
+                    "phone_number"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "secondname": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иванов"
+                    },
+                    "firstname": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иван"
+                    },
+                    "patronymic": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иванович"
+                    },
+                    "phone_number": {
+                        "description": "User unique phone number",
+                        "type": "string",
+                        "readOnly": "false",
+                        "example": "+79603639696"
+                    },
+                    "password": {
+                        "type": "string",
+                        "minLength": 6,
+                        "readOnly": "false",
+                        "example": "qwerty"
+                    },
+                    "address": {
+                        "type": "string",
+                        "example": "Саратов"
+                    },
+                    "email": {
+                        "description": "User unique email address",
+                        "type": "string",
+                        "format": "email",
+                        "readOnly": "false",
+                        "example": "user@gmail.com"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "ClientCreateRequest"
+                }
+            },
+            "ClientUpdateRequest": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "secondname": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иванов"
+                    },
+                    "firstname": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иван"
+                    },
+                    "patronymic": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иванович"
+                    },
+                    "phone_number": {
+                        "description": "User unique phone number",
+                        "type": "string",
+                        "readOnly": "false",
+                        "example": "+79603639696"
+                    },
+                    "password": {
+                        "type": "string",
+                        "minLength": 6,
+                        "readOnly": "false",
+                        "example": "qwerty"
+                    },
+                    "address": {
+                        "type": "string",
+                        "example": "Саратов"
+                    },
+                    "email": {
+                        "description": "User unique email address",
+                        "type": "string",
+                        "format": "email",
+                        "readOnly": "false",
+                        "example": "user@gmail.com"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "ClientUpdateRequest"
+                }
+            },
             "UserCreateRequest": {
                 "required": [
                     "firstname",
@@ -561,6 +1030,59 @@
                     "name": "UserUpdateRequest"
                 }
             },
+            "ClientResource": {
+                "required": [
+                    "firstname",
+                    "secondname",
+                    "phone_number",
+                    "email",
+                    "password",
+                    "departament_id"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "secondname": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иванов"
+                    },
+                    "firstname": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иван"
+                    },
+                    "patronymic": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иванович"
+                    },
+                    "phone_number": {
+                        "description": "User unique phone number",
+                        "type": "string",
+                        "readOnly": "false",
+                        "example": "+79603639696"
+                    },
+                    "email": {
+                        "description": "User unique email address",
+                        "type": "string",
+                        "format": "email",
+                        "readOnly": "false",
+                        "example": "user@gmail.com"
+                    },
+                    "address": {
+                        "type": "string",
+                        "example": "Саратов"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "UserResource"
+                }
+            },
             "UserResource": {
                 "required": [
                     "firstname",
@@ -614,6 +1136,88 @@
                 "type": "object",
                 "xml": {
                     "name": "UserResource"
+                }
+            },
+            "Client": {
+                "required": [
+                    "firstname",
+                    "secondname",
+                    "phone_number"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "secondname": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иванов"
+                    },
+                    "firstname": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иван"
+                    },
+                    "patronymic": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иванович"
+                    },
+                    "phone_number": {
+                        "description": "User unique phone number",
+                        "type": "string",
+                        "readOnly": "false",
+                        "example": "+79603639696"
+                    },
+                    "password": {
+                        "type": "string",
+                        "minLength": 6,
+                        "readOnly": "false",
+                        "example": "qwerty"
+                    },
+                    "address": {
+                        "type": "string",
+                        "example": "Саратов"
+                    },
+                    "email": {
+                        "description": "User unique email address",
+                        "type": "string",
+                        "format": "email",
+                        "readOnly": "false",
+                        "example": "user@gmail.com"
+                    },
+                    "regist": {
+                        "description": "If the user has a personal account or ordered a taxi by phone",
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "email_verified_at": {
+                        "description": "Datetime marker of verification status",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": "true",
+                        "example": "2019-02-25 12:59:20"
+                    },
+                    "created_at": {
+                        "description": "Datetime marker of create status",
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "updated_at": {
+                        "description": "Datetime marker of update status",
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Client"
                 }
             },
             "User": {
