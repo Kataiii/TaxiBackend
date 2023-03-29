@@ -1,0 +1,764 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Comfort taxi API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Sign in",
+                "description": "Login by email, password",
+                "operationId": "authLogin",
+                "requestBody": {
+                    "description": "Pass user credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "user1@mail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "PassWord12345"
+                                    },
+                                    "persistent": {
+                                        "type": "boolean",
+                                        "example": "true"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Sign in acsess",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token": {
+                                            "type": "string",
+                                            "example": "9|ldFdsd9GUmIxck3hc4cM1d8ldoUN61cwLb0rqy3g"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "Get list of users",
+                "operationId": "566aed8efb436ca506e0ef51a032ecd9",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized user"
+                    },
+                    "400": {
+                        "description": "Users isn't found"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/users/{id}": {
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "Get user by id",
+                "description": "Get user by id",
+                "operationId": "getUser",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of user",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "user": {
+                                            "$ref": "#/components/schemas/UserResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "User is not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User is not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "Create user",
+                "description": "Create new user",
+                "operationId": "createUser",
+                "requestBody": {
+                    "description": "Send data to create a new user",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "user": {
+                                        "$ref": "#/components/schemas/UserCreateRequest"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "task": {
+                                            "$ref": "#/components/schemas/UserResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error when creating user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error when creating user"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "Delete user by id",
+                "description": "Delete user by id",
+                "operationId": "deleteUser",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of user",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "user": {
+                                            "$ref": "#/components/schemas/UserResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User is not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User is not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "Update user",
+                "description": "Update user",
+                "operationId": "updateUser",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of user",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Send data to update a user",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "user": {
+                                        "$ref": "#/components/schemas/UserUpdateRequest"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "user": {
+                                            "$ref": "#/components/schemas/UserResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "User is not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Task is not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error when updating user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error when updating user"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "UserCreateRequest": {
+                "required": [
+                    "firstname",
+                    "secondname",
+                    "phone_number",
+                    "email",
+                    "password",
+                    "departament_id"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "secondname": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иванов"
+                    },
+                    "firstname": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иван"
+                    },
+                    "patronymic": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иванович"
+                    },
+                    "phone_number": {
+                        "description": "User unique phone number",
+                        "type": "string",
+                        "readOnly": "false",
+                        "example": "+79603639696"
+                    },
+                    "password": {
+                        "type": "string",
+                        "minLength": 6,
+                        "readOnly": "false",
+                        "example": "qwerty"
+                    },
+                    "address": {
+                        "type": "string",
+                        "example": "Саратов"
+                    },
+                    "email": {
+                        "description": "User unique email address",
+                        "type": "string",
+                        "format": "email",
+                        "readOnly": "false",
+                        "example": "user@gmail.com"
+                    },
+                    "departament_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "date_of_birth": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "1985-02-25"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "UserCreateRequest"
+                }
+            },
+            "UserUpdateRequest": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "secondname": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иванов"
+                    },
+                    "firstname": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иван"
+                    },
+                    "patronymic": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иванович"
+                    },
+                    "phone_number": {
+                        "description": "User unique phone number",
+                        "type": "string",
+                        "readOnly": "false",
+                        "example": "+79603639696"
+                    },
+                    "password": {
+                        "type": "string",
+                        "minLength": 6,
+                        "readOnly": "false",
+                        "example": "qwerty"
+                    },
+                    "address": {
+                        "type": "string",
+                        "example": "Саратов"
+                    },
+                    "email": {
+                        "description": "User unique email address",
+                        "type": "string",
+                        "format": "email",
+                        "readOnly": "false",
+                        "example": "user@gmail.com"
+                    },
+                    "departament_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "date_of_birth": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "1985-02-25"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "UserUpdateRequest"
+                }
+            },
+            "UserResource": {
+                "required": [
+                    "firstname",
+                    "secondname",
+                    "phone_number",
+                    "email",
+                    "password",
+                    "departament_id"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "secondname": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иванов"
+                    },
+                    "firstname": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иван"
+                    },
+                    "patronymic": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иванович"
+                    },
+                    "phone_number": {
+                        "description": "User unique phone number",
+                        "type": "string",
+                        "readOnly": "false",
+                        "example": "+79603639696"
+                    },
+                    "email": {
+                        "description": "User unique email address",
+                        "type": "string",
+                        "format": "email",
+                        "readOnly": "false",
+                        "example": "user@gmail.com"
+                    },
+                    "date_of_birth": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "1985-02-25"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "UserResource"
+                }
+            },
+            "User": {
+                "required": [
+                    "firstname",
+                    "secondname",
+                    "phone_number",
+                    "email",
+                    "password",
+                    "departament_id"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "secondname": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иванов"
+                    },
+                    "firstname": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иван"
+                    },
+                    "patronymic": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иванович"
+                    },
+                    "phone_number": {
+                        "description": "User unique phone number",
+                        "type": "string",
+                        "readOnly": "false",
+                        "example": "+79603639696"
+                    },
+                    "password": {
+                        "type": "string",
+                        "minLength": 6,
+                        "readOnly": "false",
+                        "example": "qwerty"
+                    },
+                    "address": {
+                        "type": "string",
+                        "example": "Саратов"
+                    },
+                    "email": {
+                        "description": "User unique email address",
+                        "type": "string",
+                        "format": "email",
+                        "readOnly": "false",
+                        "example": "user@gmail.com"
+                    },
+                    "departament_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "date_of_birth": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "1985-02-25"
+                    },
+                    "email_verified_at": {
+                        "description": "Datetime marker of verification status",
+                        "type": "string",
+                        "format": "date-time",
+                        "readOnly": "true",
+                        "example": "2019-02-25 12:59:20"
+                    },
+                    "created_at": {
+                        "description": "Datetime marker of create status",
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "updated_at": {
+                        "description": "Datetime marker of update status",
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "User"
+                }
+            }
+        },
+        "responses": {
+            "422": {
+                "description": "Wrong credentials response",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Sorry, wrong email address or password. Please try again"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "500": {
+                "description": "Error server",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Error when finding user. Please, try again"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "security": [
+        {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    ]
+}
