@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ClientController;
+use App\Http\Controllers\Api\LeadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,16 +25,31 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['middleware' => 'auth:sanctum'], function (){
     //Тут запросы
     Route::apiResources([
-        'users' => UserController::class,
+        'leads' => LeadController::class,
         'clients' => ClientController::class
     ]);
 
-    //Route::post('/users', [UserController::class, 'store']);
+    //Route::get('/clients/phone', [ClientController::class, 'showWithPhone']);
+    // Route::get('/test', function(){
+    //     return response(['Message'=>"Hello"], 200);
+    // })
+});
+
+Route::group(['middleware' => 'auth:sanctum','middleware' => 'admin'], function () {
+    Route::apiResources([
+        'users' => UserController::class
+    ]);
 });
 //Route::get('/users', [UserController::class, 'index']);
-
+// Route::get('/clients/phone', function(){
+//         return response(['Message'=>"Hello"], 200);
+//     })
 // Route::get('/test1', function(){
 //     return("Hello");
+// })
+
+// Route::get('clients/phone/{phone}', function(Request $request){
+//     return(ClientController::showWithPhone($request->phone));
 // })
 
 

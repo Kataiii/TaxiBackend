@@ -8,6 +8,7 @@ use App\Http\Resources\ClientResource;
 use App\Models\Client;
 use App\Http\Requests\ClientCreateRequest;
 use App\Http\Requests\ClientUpdateRequest;
+use Illuminate\Support\Facades\DB;
 
 class ClientController extends Controller
 {
@@ -148,12 +149,29 @@ class ClientController extends Controller
             if($client != null){
                 return response([new ClientResource($client)], 200);
             }
-            return responce(['Message'=>'Can\'t find client by id'], 400);
+            return response(['Message'=>'Can\'t find client by id'], 400);
         }catch (\Exception $e) {
             return response([
                 'Message'=>'Error when finding client. Please, try again',
                 'Error' => $e
             ], 500);
+        }
+    }
+
+    public static function showWithPhone(string $phone){
+        try{
+            $client = DB::table('clients')
+                ->where('phone_number', $phone)
+                ->first();
+            if($client != null){
+                return response([new ClientResource($client)], 200);
+            }
+            return response(['Message'=>$request], 402);
+        }catch (\Exception $e) {
+             return response([
+                 'Message'=>'Error when finding client by phone. Please, try again',
+                 'Error' => $e
+             ], 500);
         }
     }
 

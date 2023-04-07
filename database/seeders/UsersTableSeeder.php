@@ -21,6 +21,7 @@ class UsersTableSeeder extends Seeder
             'phone_number' => '+79603469551',
             'email' => 'katya_yuneva@mail.ru',
             'password' => Hash::make('qwerty'),
+            'role' => 0,
             'departament_id' => '1'
         ]);
     }

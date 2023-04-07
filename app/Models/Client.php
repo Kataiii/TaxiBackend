@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Lead;
 
 /**
  *
@@ -56,4 +57,9 @@ class Client extends Model
         'password',
         'remember_token',
     ];
+
+    public function leads(): HasMany
+    {
+        return $this->hasMany(Lead::class);
+    }
 }

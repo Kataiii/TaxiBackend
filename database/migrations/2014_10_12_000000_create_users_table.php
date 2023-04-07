@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('password');
             $table->foreignId('departament_id');
             $table->date('date_of_birth')->nullable();
+            $table->tinyInteger('role')->default(1);
             $table->rememberToken();
             $table->timestamps();
         });
