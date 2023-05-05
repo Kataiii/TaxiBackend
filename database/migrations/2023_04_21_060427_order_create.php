@@ -11,9 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('departament', function (Blueprint $table) {
+        Schema::create('order', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('status'); 
+            $table->foreignId('working_shirt_id');
+            $table->foreignId('lead_id');
+            $table->biginteger('price');
+            $table->double('rating');
+            $table->date('date_start');
+            $table->date('date_end');
             $table->timestamps();
         });
     }
@@ -23,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('departament');
+        //
     }
 };

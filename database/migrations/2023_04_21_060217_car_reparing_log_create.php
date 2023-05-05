@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('departament', function (Blueprint $table) {
+        Schema::create('car_reparing_log', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->foreignId('car_id');
+            $table->date('end_date');
             $table->timestamps();
         });
     }
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('departament');
+        //
     }
 };

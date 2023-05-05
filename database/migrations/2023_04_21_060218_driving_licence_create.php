@@ -11,9 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('departament', function (Blueprint $table) {
+        Schema::create('driving_licence', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('category');
+            $table->string('driving_licence_series');
+            $table->string('driving_licence_number');
+            $table->date('driving_getting');
+            $table->date('driving_deprivation');
+            $table->foreignId('driving_licence_id');
             $table->timestamps();
         });
     }
@@ -23,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('departament');
+        //
     }
 };

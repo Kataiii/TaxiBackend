@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ClientController;
 use App\Http\Controllers\Api\LeadController;
+use App\Http\Controllers\Api\CarClassController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,10 +24,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => 'auth:sanctum'], function (){
-    //Тут запросы
     Route::apiResources([
         'leads' => LeadController::class,
-        'clients' => ClientController::class
+        'clients' => ClientController::class,
+        'carClass' => CarClassController::class
     ]);
 
     //Route::get('/clients/phone', [ClientController::class, 'showWithPhone']);

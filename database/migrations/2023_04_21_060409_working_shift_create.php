@@ -11,9 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('departament', function (Blueprint $table) {
+        Schema::create('working_shirt', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name'); 
+            $table->foreignId('driver_id');
+            $table->foreignId('car_id');
+            $table->string('driver_location');
+            $table->date('date_start');
+            $table->date('date_end');
             $table->timestamps();
         });
     }
@@ -23,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('departament');
+        //
     }
 };
