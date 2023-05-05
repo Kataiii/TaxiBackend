@@ -4,25 +4,25 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Resources\CarClassResource;
-use App\Models\CarClass;
-use App\Http\Requests\CarClassCreateRequest;
-use App\Http\Requests\CarClassUpdateRequest;
+use App\Http\Resources\DriverResource;
+use App\Models\Driver;
+use App\Http\Requests\DriverCreateRequest;
+use App\Http\Requests\DriverUpdateRequest;
 
-class CarClassController extends Controller
+class DriverController extends Controller
 {
     /**
      * @OA\Get(
-     *     path="/api/carClass",
-     *     summary="Get list of car classes",
-     *     tags={"carClass"},
+     *     path="/api/driver",
+     *     summary="Get list of drivers",
+     *     tags={"driver"},
      *     security={ {"sanctum": {} }},
      *     @OA\Response(
      *         response=200,
      *         description="successful operation",
      *         @OA\Schema(
      *             type="array",
-     *             @OA\Items(ref="#/definitions/CarClassResource")
+     *             @OA\Items(ref="#/definitions/DriverResource")
      *         ),
      *     ),
      *     @OA\Response(
@@ -31,38 +31,38 @@ class CarClassController extends Controller
      *     ),
      *     @OA\Response(
      *         response="400",
-     *         description="Car classes isn't found",
+     *         description="drivers isn't found",
      *     )
      * )
      */
     public function index()
     {
-        if(count(CarClass::all()) == 0){
-            return response(['Message'=>'Can\'t find car class'], 400);
+        if(count(Driver::all()) == 0){
+            return response(['Message'=>'Can\'t find drivers'], 400);
         }
-        return CarClassResource::collection(CarClass::all());
+        return D::collection(Driver::all());
     }
 
     /**
      * @OA\Post(
-     * path="/api/carClass/{id}",
-     * summary="Create car class",
-     * description="Create new car class",
-     * operationId="createCarClass",
-     * tags={"carClass"},
+     * path="/api/driver/{id}",
+     * summary="Create driver",
+     * description="Create new driver",
+     * operationId="createdriver",
+     * tags={"driver"},
      * security={ {"sanctum": {} }},
      * @OA\RequestBody(
      *    required=true,
-     *    description="Send data to create a new car class",
+     *    description="Send data to create a new driver",
      *    @OA\JsonContent(
-     *       @OA\Property(property="user", type="object", ref="#/components/schemas/CarClassCreateRequest"),
+     *       @OA\Property(property="user", type="object", ref="#/components/schemas/DriverCreateRequest"),
      *    ),
      * ),
      * @OA\Response(
      *     response=201,
      *     description="Success",
      *     @OA\JsonContent(
-     *        @OA\Property(property="task", type="object", ref="#/components/schemas/CarClassResource"),
+     *        @OA\Property(property="task", type="object", ref="#/components/schemas/DriverResource"),
      *     )
      *  ),
      * @OA\Response(
@@ -74,21 +74,21 @@ class CarClassController extends Controller
      *     ),
      * @OA\Response(
      *      response="500",
-     *      description="Error when creating carClass",
+     *      description="Error when creating driver",
      *      @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Error when creating carClass")
+     *       @OA\Property(property="message", type="string", example="Error when creating driver")
      *          )
      *      )
      * )
      */
-    public function store(CarClassCreateRequest $request)
+    public function store(DriverCreateRequest $request)
     {
         try {
-            $new_car_class = CarClass::create($request->validated());
-            return response([new CarClassResource($new_car_class)], 201);
+            $new_driver = Driver::create($request->validated());
+            return response([new DriverResource($new_driver)], 201);
         }catch (\Exception $e) {
              return response([
-                'Message'=>'Error when creating car class. Please, try again',
+                'Message'=>'Error when creating driver. Please, try again',
                 'Error' => $e
             ], 500);
         }
@@ -96,14 +96,14 @@ class CarClassController extends Controller
 
         /**
      * @OA\Get(
-     * path="/api/carClass/{id}",
-     * summary="Get car class by id",
-     * description="Get car class by id",
-     * operationId="getCarClass",
-     * tags={"carClass"},
+     * path="/api/driver/{id}",
+     * summary="Get driver by id",
+     * description="Get driver by id",
+     * operationId="getdriver",
+     * tags={"driver"},
      * security={ {"sanctum": {}}},
      * @OA\Parameter(
-     *    description="ID of car class",
+     *    description="ID of driver",
      *    in="path",
      *    name="id",
      *    required=true,
@@ -117,14 +117,14 @@ class CarClassController extends Controller
      *     response=200,
      *     description="Success",
      *     @OA\JsonContent(
-     *        @OA\Property(property="carClass", type="object", ref="#/components/schemas/CarClassResource"),
+     *        @OA\Property(property="driver", type="object", ref="#/components/schemas/DriverResource"),
      *     )
      *  ),
      * @OA\Response(
      *      response="400",
-     *      description="Car class is not found",
+     *      description="driver is not found",
      *      @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Car class is not found")
+     *       @OA\Property(property="message", type="string", example="driver is not found")
      *    )
      * )
      * ,
@@ -140,14 +140,14 @@ class CarClassController extends Controller
     public function show(string $id)
     {
         try {
-            $carClass = CarClass::find($id);
-            if($carClass != null){
-                return response([new CarClassResource($carClass)], 200);
+            $driver = Driver::find($id);
+            if($driver != null){
+                return response([new DriverResource($driver)], 200);
             }
-            return response(['Message'=>'Can\'t find car class by id'], 400);
+            return response(['Message'=>'Can\'t find driver by id'], 400);
         }catch (\Exception $e) {
             return response([
-                'Message'=>'Error when finding car class. Please, try again',
+                'Message'=>'Error when finding driver. Please, try again',
                 'Error' => $e
             ], 500);
         }
@@ -155,14 +155,14 @@ class CarClassController extends Controller
 
        /**
      * @OA\Patch(
-     * path="/api/carClass/{id}",
-     * summary="Update car class",
-     * description="Update car class",
-     * operationId="updateCarClass",
-     * tags={"carClass"},
+     * path="/api/driver/{id}",
+     * summary="Update driver",
+     * description="Update driver",
+     * operationId="updatedriver",
+     * tags={"driver"},
      * security={ {"sanctum": {} }},
      * @OA\Parameter(
-     *    description="ID of car class",
+     *    description="ID of driver",
      *    in="path",
      *    name="id",
      *    required=true,
@@ -174,23 +174,23 @@ class CarClassController extends Controller
      * ),
      * @OA\RequestBody(
      *    required=true,
-     *    description="Send data to update a car class",
+     *    description="Send data to update a driver",
      *    @OA\JsonContent(
-     *       @OA\Property(property="carClass", type="object", ref="#/components/schemas/CarClassUpdateRequest"),
+     *       @OA\Property(property="driver", type="object", ref="#/components/schemas/DriverUpdateRequest"),
      *    ),
      * ),
      * @OA\Response(
      *     response=201,
      *     description="Success",
      *     @OA\JsonContent(
-     *        @OA\Property(property="carClass", type="object", ref="#/components/schemas/CarClassResource"),
+     *        @OA\Property(property="driver", type="object", ref="#/components/schemas/DriverResource"),
      *     )
      *  ),
      * @OA\Response(
      *      response="400",
-     *      description="Car class is not found",
+     *      description="driver is not found",
      *      @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Car class is not found")
+     *       @OA\Property(property="message", type="string", example="driver is not found")
      *    )
      * )
      * ,
@@ -203,40 +203,40 @@ class CarClassController extends Controller
      *     ),
      * @OA\Response(
      *      response="500",
-     *      description="Error when updating car class",
+     *      description="Error when updating driver",
      *      @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Error when updating car class")
+     *       @OA\Property(property="message", type="string", example="Error when updating driver")
      *          )
      *      )
      * )
      */
-    public function update(CarClassUpdateRequest $request, string $id)
+    public function update(DriverUpdateRequest $request, string $id)
     {
         try{
-            $car_class = CarClass::find($id);
-            if($car_class == null){
-                return response(['Message'=>'Can\'t find a car class with this id'], 400);
+            $driver = Driver::find($id);
+            if($driver == null){
+                return response(['Message'=>'Can\'t find a driver with this id'], 400);
             }
-            $car_class->update($request->validated());
-            return response([new CarClassResource($carClass)], 201);
+            $driver->update($request->validated());
+            return response([new DriverResource($driver)], 201);
         } catch(\Exception $e){
            return response([
-               'Message'=>'Error when updating car class. Please, try again',
+               'Message'=>'Error when updating driver. Please, try again',
                'Error' => $e
            ], 500);
         }
     }
 
-        /**
+    /**
      * @OA\Delete(
-     * path="/api/carClass/{id}",
-     * summary="Delete car class by id",
-     * description="Delete car class by id",
-     * operationId="deleteCarClass",
-     * tags={"carClass"},
+     * path="/api/driver/{id}",
+     * summary="Delete driver by id",
+     * description="Delete driver by id",
+     * operationId="deletedriver",
+     * tags={"driver"},
      * security={ {"sanctum": {} }},
      * @OA\Parameter(
-     *    description="ID of car class",
+     *    description="ID of driver",
      *    in="path",
      *    name="id",
      *    required=true,
@@ -250,14 +250,14 @@ class CarClassController extends Controller
      *     response=201,
      *     description="Success",
      *     @OA\JsonContent(
-     *        @OA\Property(property="carClass", type="object", ref="#/components/schemas/CarClassResource"),
+     *        @OA\Property(property="driver", type="object", ref="#/components/schemas/DriverResource"),
      *     )
      *  ),
      * @OA\Response(
      *      response="404",
-     *      description="Car class is not found",
+     *      description="driver is not found",
      *      @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Car class is not found")
+     *       @OA\Property(property="message", type="string", example="driver is not found")
      *    )
      * )
      * ,
@@ -273,11 +273,11 @@ class CarClassController extends Controller
      */
     public function destroy(string $id)
     {
-        $carClass = CarClass::find($id);
-        if($carClass == null){
-            return response(['Message'=>'Can\'t find a car class with this id'], 400);
+        $driver = Driver::find($id);
+        if($driver == null){
+            return response(['Message'=>'Can\'t find a driver with this id'], 400);
         }
-        $carClass->delete();
-        return response([new CarClassResource($carClass)], 201);
+        $driver->delete();
+        return response([new DriverResource($driver)], 201);
     }
 }

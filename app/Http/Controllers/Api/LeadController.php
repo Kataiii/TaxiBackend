@@ -12,7 +12,28 @@ use App\Http\Requests\LeadUpdateRequest;
 class LeadController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/api/lead",
+     *     summary="Get list of leads",
+     *     tags={"lead"},
+     *     security={ {"sanctum": {} }},
+     *     @OA\Response(
+     *         response=200,
+     *         description="successful operation",
+     *         @OA\Schema(
+     *             type="array",
+     *             @OA\Items(ref="#/definitions/Lead")
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response="401",
+     *         description="Unauthorized user",
+     *     ),
+     *     @OA\Response(
+     *         response="400",
+     *         description="workingShift isn't found",
+     *     )
+     * )
      */
     public function index()
     {
@@ -23,7 +44,42 @@ class LeadController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     * path="/api/lead/{id}",
+     * summary="Create lead",
+     * description="Create new lead",
+     * operationId="createlead",
+     * tags={"lead"},
+     * security={ {"sanctum": {} }},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Send data to create a new lead",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="user", type="object", ref="#/components/schemas/LeadCreateRequest"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *     response=201,
+     *     description="Success",
+     *     @OA\JsonContent(
+     *        @OA\Property(property="task", type="object", ref="#/components/schemas/LeadResource"),
+     *     )
+     *  ),
+     * @OA\Response(
+     *      response="401",
+     *      description="Unauthorized user",
+     *     @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Unauthorized")
+     *        )
+     *     ),
+     * @OA\Response(
+     *      response="500",
+     *      description="Error when creating order",
+     *      @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Error when creating lead")
+     *          )
+     *      )
+     * )
      */
     public function store(LeadCreateRequest $request)
     {
@@ -39,7 +95,47 @@ class LeadController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @OA\Get(
+     * path="/api/lead/{id}",
+     * summary="Get lead by id",
+     * description="Get lead by id",
+     * operationId="getlead",
+     * tags={"lead"},
+     * security={ {"sanctum": {}}},
+     * @OA\Parameter(
+     *    description="ID of lead",
+     *    in="path",
+     *    name="id",
+     *    required=true,
+     *    example="1",
+     *    @OA\Schema(
+     *       type="integer",
+     *       format="int64"
+     *    )
+     * ),
+     * @OA\Response(
+     *     response=200,
+     *     description="Success",
+     *     @OA\JsonContent(
+     *        @OA\Property(property="lead", type="object", ref="#/components/schemas/LeadResource"),
+     *     )
+     *  ),
+     * @OA\Response(
+     *      response="400",
+     *      description="lead is not found",
+     *      @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="lead is not found")
+     *    )
+     * )
+     * ,
+     * @OA\Response(
+     *      response="401",
+     *      description="Unauthorized user",
+     *     @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Unauthorized")
+     *        )
+     *     )
+     * )
      */
     public function show(string $id)
     {
@@ -57,8 +153,62 @@ class LeadController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
+     /**
+     * @OA\Patch(
+     * path="/api/lead/{id}",
+     * summary="Update lead",
+     * description="Update lead",
+     * operationId="updatelead",
+     * tags={"lead"},
+     * security={ {"sanctum": {} }},
+     * @OA\Parameter(
+     *    description="ID of lead",
+     *    in="path",
+     *    name="id",
+     *    required=true,
+     *    example="1",
+     *    @OA\Schema(
+     *       type="integer",
+     *       format="int64"
+     *    )
+     * ),
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Send data to update a lead",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="lead", type="object", ref="#/components/schemas/LeadUpdateRequest"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *     response=201,
+     *     description="Success",
+     *     @OA\JsonContent(
+     *        @OA\Property(property="lead", type="object", ref="#/components/schemas/LeadResource"),
+     *     )
+     *  ),
+     * @OA\Response(
+     *      response="400",
+     *      description="lead is not found",
+     *      @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="lead is not found")
+     *    )
+     * )
+     * ,
+     * @OA\Response(
+     *      response="401",
+     *      description="Unauthorized user",
+     *     @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Unauthorized")
+     *        )
+     *     ),
+     * @OA\Response(
+     *      response="500",
+     *      description="Error when updating lead",
+     *      @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Error when updating lead")
+     *          )
+     *      )
+     * )
      */
     public function update(LeadUpdateRequest $request, string $id)
     {
@@ -78,11 +228,52 @@ class LeadController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @OA\Delete(
+     * path="/api/lead/{id}",
+     * summary="Delete lead by id",
+     * description="Delete lead by id",
+     * operationId="deletelead",
+     * tags={"lead"},
+     * security={ {"sanctum": {} }},
+     * @OA\Parameter(
+     *    description="ID of lead",
+     *    in="path",
+     *    name="id",
+     *    required=true,
+     *    example="1",
+     *    @OA\Schema(
+     *       type="integer",
+     *       format="int64"
+     *    )
+     * ),
+     * @OA\Response(
+     *     response=201,
+     *     description="Success",
+     *     @OA\JsonContent(
+     *        @OA\Property(property="lead", type="object", ref="#/components/schemas/LeadResource"),
+     *     )
+     *  ),
+     * @OA\Response(
+     *      response="404",
+     *      description="lead is not found",
+     *      @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="lead class is not found")
+     *    )
+     * )
+     * ,
+     * @OA\Response(
+     *      response="401",
+     *      description="Unauthorized user",
+     *     @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Unauthorized")
+     *        )
+     *     )
+     *
+     * )
      */
     public function destroy(string $id)
     {
-        $lead = Client::find($id);
+        $lead = Lead::find($id);
         if($lead == null){
             return response(['Message'=>'Can\'t find a lead with this id'], 400);
         }

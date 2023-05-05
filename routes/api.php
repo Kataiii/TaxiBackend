@@ -7,6 +7,15 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ClientController;
 use App\Http\Controllers\Api\LeadController;
 use App\Http\Controllers\Api\CarClassController;
+use App\Http\Controllers\Api\CarController;
+use App\Http\Controllers\Api\CarReparingLogController;
+use App\Http\Controllers\Api\CompanyController;
+use App\Http\Controllers\Api\DepartamentController;
+use App\Http\Controllers\Api\DriverController;
+use App\Http\Controllers\Api\DriverFiredLogController;
+use App\Http\Controllers\Api\DrivingLicenceController;
+use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\WorkingShiftController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,13 +36,17 @@ Route::group(['middleware' => 'auth:sanctum'], function (){
     Route::apiResources([
         'leads' => LeadController::class,
         'clients' => ClientController::class,
-        'carClass' => CarClassController::class
+        'carClass' => CarClassController::class,
+        'car' => CarController::class,
+        'carReparingLog' => CarReparingLogController::class,
+        'company' => CompanyController::class,
+        'departament' => DepartamentController::class,
+        'driver' => DriverController::class,
+        'driverFiredLog' => DriverFiredLogController::class,
+        'drivingLicence' => DrivingLicenceController::class,
+        'order' => OrderController::class,
+        'workingShift' => WorkingShiftController::class
     ]);
-
-    //Route::get('/clients/phone', [ClientController::class, 'showWithPhone']);
-    // Route::get('/test', function(){
-    //     return response(['Message'=>"Hello"], 200);
-    // })
 });
 
 Route::group(['middleware' => 'auth:sanctum','middleware' => 'admin'], function () {
@@ -41,18 +54,6 @@ Route::group(['middleware' => 'auth:sanctum','middleware' => 'admin'], function 
         'users' => UserController::class
     ]);
 });
-//Route::get('/users', [UserController::class, 'index']);
-// Route::get('/clients/phone', function(){
-//         return response(['Message'=>"Hello"], 200);
-//     })
-// Route::get('/test1', function(){
-//     return("Hello");
-// })
-
-// Route::get('clients/phone/{phone}', function(Request $request){
-//     return(ClientController::showWithPhone($request->phone));
-// })
-
 
 Route::post('/login', function (Request $request){
     $email = request('email');

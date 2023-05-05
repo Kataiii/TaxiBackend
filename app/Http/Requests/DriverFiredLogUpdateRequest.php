@@ -7,17 +7,17 @@ use Illuminate\Foundation\Http\FormRequest;
 /**
  *
  * @OA\Schema(
- * required={"car_id", "end_date"},
- * @OA\Xml(name="CarReparingLogCreateRequest"),
+ * @OA\Xml(name="DriverFiredLogUpdateRequest"),
  * @OA\Property(property="id", type="integer", readOnly="true", example="1"),
- * @OA\Property(property="car_id", type="integer", example="1"),
- * @OA\Property(property="end_date",type="string", readOnly="true", format="date",example="2019-02-25"), 
+ * @OA\Property(property="date_hired",type="string", readOnly="true", format="date",example="2019-02-25"), 
+ * @OA\Property(property="date_fired",type="string", readOnly="true", format="date",example="2019-02-25"), 
+ * @OA\Property(property="driver_id", type="integer", readOnly="true", example="1"),
  * )
  *
- * Class CarReparingLogCreateRequest
+ * Class DriverFiredLogUpdateRequest
  *
  */
-class CarReparingLogCreateRequest extends FormRequest
+class DriverFiredLogUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -35,8 +35,9 @@ class CarReparingLogCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'car_id'  => 'required|integer',
-            'end_date' => 'required|date'
+            'date_hired' => 'nullable|date',
+            'date_fired' => 'nullable|date',
+            'driver_id' => 'nullable|integer'
         ];
     }
 }

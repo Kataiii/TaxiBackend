@@ -426,6 +426,730 @@
                 ]
             }
         },
+        "/api/car": {
+            "get": {
+                "tags": [
+                    "car"
+                ],
+                "summary": "Get list of cars",
+                "operationId": "4ef39d2263517f5584f70288fe365829",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized user"
+                    },
+                    "400": {
+                        "description": "Cars isn't found"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/car/{id}": {
+            "get": {
+                "tags": [
+                    "car"
+                ],
+                "summary": "Get car by id",
+                "description": "Get car by id",
+                "operationId": "getCar",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of car",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "car": {
+                                            "$ref": "#/components/schemas/CarResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Car is not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Car is not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "car"
+                ],
+                "summary": "Create car",
+                "description": "Create new car",
+                "operationId": "createCar",
+                "requestBody": {
+                    "description": "Send data to create a new car",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "user": {
+                                        "$ref": "#/components/schemas/CarCreateRequest"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "task": {
+                                            "$ref": "#/components/schemas/CarResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error when creating car",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error when creating car"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "car"
+                ],
+                "summary": "Delete car by id",
+                "description": "Delete car by id",
+                "operationId": "deleteCar",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of car",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "car": {
+                                            "$ref": "#/components/schemas/CarResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Car is not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Car is not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "car"
+                ],
+                "summary": "Update car",
+                "description": "Update car",
+                "operationId": "updateCar",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of car",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Send data to update a car",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "car": {
+                                        "$ref": "#/components/schemas/CarUpdateRequest"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "car": {
+                                            "$ref": "#/components/schemas/CarResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Car class is not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Car is not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error when updating car",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error when updating car"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/carReparingLog": {
+            "get": {
+                "tags": [
+                    "carReparingLog"
+                ],
+                "summary": "Get list of carReparingLogs",
+                "operationId": "37b38e01848ad58e577234286895ce32",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized user"
+                    },
+                    "400": {
+                        "description": "CarReparingLogs isn't found"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/carReparingLog/{id}": {
+            "get": {
+                "tags": [
+                    "carReparingLog"
+                ],
+                "summary": "Get carReparingLog by id",
+                "description": "Get carReparingLog by id",
+                "operationId": "getCarReparingLog",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of carReparingLog",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "carReparingLog": {
+                                            "$ref": "#/components/schemas/CarReparingLog"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "CarReparingLog is not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "CarReparingLog is not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "carReparingLog"
+                ],
+                "summary": "Create carReparingLog",
+                "description": "Create new carReparingLog",
+                "operationId": "createCarReparingLog",
+                "requestBody": {
+                    "description": "Send data to create a new carReparingLog",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "carReparingLog": {
+                                        "$ref": "#/components/schemas/CarReparingLogCreateRequest"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "task": {
+                                            "$ref": "#/components/schemas/CarReparingLog"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error when creating carReparingLog",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error when creating carReparingLog"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "carReparingLog"
+                ],
+                "summary": "Delete carReparingLog by id",
+                "description": "Delete carReparingLog by id",
+                "operationId": "deleteCarReparingLog",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of carReparingLog",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "carReparingLog": {
+                                            "$ref": "#/components/schemas/CarReparingLog"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "CarReparingLog is not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "CarReparingLog is not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "carReparingLog"
+                ],
+                "summary": "Update carReparingLog",
+                "description": "Update carReparingLog",
+                "operationId": "updateCarReparingLog",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of carReparingLog",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Send data to update a carReparingLog",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "carReparingLog": {
+                                        "$ref": "#/components/schemas/CarReparingLogUpdateRequest"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "carReparingLog": {
+                                            "$ref": "#/components/schemas/CarReparingLog"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "CarReparingLog class is not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "CarReparingLog is not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error when updating carReparingLog",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error when updating carReparingLog"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
         "/api/clients": {
             "get": {
                 "tags": [
@@ -773,6 +1497,2540 @@
                                         "message": {
                                             "type": "string",
                                             "example": "Error when updating client"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/company": {
+            "get": {
+                "tags": [
+                    "company"
+                ],
+                "summary": "Get list of company",
+                "operationId": "08c6be3a956569c8ed98393de93653c9",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized user"
+                    },
+                    "400": {
+                        "description": "Company isn't found"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/company/{id}": {
+            "get": {
+                "tags": [
+                    "company"
+                ],
+                "summary": "Get company by id",
+                "description": "Get company by id",
+                "operationId": "getCompany",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of company class",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Company": {
+                                            "$ref": "#/components/schemas/CompanyResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Company is not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Company is not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "company"
+                ],
+                "summary": "Create company",
+                "description": "Create new company",
+                "operationId": "createCompany",
+                "requestBody": {
+                    "description": "Send data to create a new company",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "user": {
+                                        "$ref": "#/components/schemas/CompanyCreateRequest"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "task": {
+                                            "$ref": "#/components/schemas/CompanyResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error when creating Company",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error when creating Company"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "company"
+                ],
+                "summary": "Delete company by id",
+                "description": "Delete company by id",
+                "operationId": "deleteCompany",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of Company",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Company": {
+                                            "$ref": "#/components/schemas/CompanyResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Company is not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Company class is not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "company"
+                ],
+                "summary": "Update company",
+                "description": "Update company",
+                "operationId": "updateCompany",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of company",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Send data to update a company",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "Company": {
+                                        "$ref": "#/components/schemas/CompanyUpdateRequest"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Company": {
+                                            "$ref": "#/components/schemas/CompanyResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Company is not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Company is not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error when updating company",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error when updating company"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/departament": {
+            "get": {
+                "tags": [
+                    "departament"
+                ],
+                "summary": "Get list of departaments",
+                "operationId": "79f9b3a8fe8ea82659229bfe3dab3236",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized user"
+                    },
+                    "400": {
+                        "description": "Departaments isn't found"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/departament/{id}": {
+            "get": {
+                "tags": [
+                    "departament"
+                ],
+                "summary": "Get departament by id",
+                "description": "Get departament by id",
+                "operationId": "getDepartament",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of departament",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Departament": {
+                                            "$ref": "#/components/schemas/DepartamentResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "departament is not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "departament is not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "departament"
+                ],
+                "summary": "Create departament",
+                "description": "Create new departament",
+                "operationId": "createDepartament",
+                "requestBody": {
+                    "description": "Send data to create a new departament",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "user": {
+                                        "$ref": "#/components/schemas/DepartamentCreateRequest"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "task": {
+                                            "$ref": "#/components/schemas/DepartamentResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error when creating Departament",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error when creating Departament"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "departament"
+                ],
+                "summary": "Delete departament by id",
+                "description": "Delete departament by id",
+                "operationId": "deleteDepartament",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of departament",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Departament": {
+                                            "$ref": "#/components/schemas/DepartamentResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "departament is not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "departament is not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "departament"
+                ],
+                "summary": "Update departament",
+                "description": "Update departament",
+                "operationId": "updateDepartament",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of departament",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Send data to update a departament",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "Departament": {
+                                        "$ref": "#/components/schemas/DepartamentUpdateRequest"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Departament": {
+                                            "$ref": "#/components/schemas/DepartamentResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "departament is not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "departament is not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error when updating departament",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error when updating departament"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/driver": {
+            "get": {
+                "tags": [
+                    "driver"
+                ],
+                "summary": "Get list of drivers",
+                "operationId": "91ce118ace6bf8c1618dae381e22e051",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized user"
+                    },
+                    "400": {
+                        "description": "drivers isn't found"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/driver/{id}": {
+            "get": {
+                "tags": [
+                    "driver"
+                ],
+                "summary": "Get driver by id",
+                "description": "Get driver by id",
+                "operationId": "getdriver",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of driver",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "driver": {
+                                            "$ref": "#/components/schemas/DriverResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "driver is not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "driver is not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "driver"
+                ],
+                "summary": "Create driver",
+                "description": "Create new driver",
+                "operationId": "createdriver",
+                "requestBody": {
+                    "description": "Send data to create a new driver",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "user": {
+                                        "$ref": "#/components/schemas/DriverCreateRequest"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "task": {
+                                            "$ref": "#/components/schemas/DriverResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error when creating driver",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error when creating driver"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "driver"
+                ],
+                "summary": "Delete driver by id",
+                "description": "Delete driver by id",
+                "operationId": "deletedriver",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of driver",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "driver": {
+                                            "$ref": "#/components/schemas/DriverResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "driver is not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "driver is not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "driver"
+                ],
+                "summary": "Update driver",
+                "description": "Update driver",
+                "operationId": "updatedriver",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of driver",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Send data to update a driver",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "driver": {
+                                        "$ref": "#/components/schemas/DriverUpdateRequest"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "driver": {
+                                            "$ref": "#/components/schemas/DriverResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "driver is not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "driver is not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error when updating driver",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error when updating driver"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/driverFiredLog": {
+            "get": {
+                "tags": [
+                    "driverFiredLog"
+                ],
+                "summary": "Get list of driverFiredLog",
+                "operationId": "ed54d6f26ec59c64661c59034429fe04",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized user"
+                    },
+                    "400": {
+                        "description": "driverFiredLog isn't found"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/driverFiredLog/{id}": {
+            "get": {
+                "tags": [
+                    "driverFiredLog"
+                ],
+                "summary": "Get driverFiredLog by id",
+                "description": "Get driverFiredLog by id",
+                "operationId": "getdriverFiredLog",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of driverFiredLog class",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "driverFiredLog": {
+                                            "$ref": "#/components/schemas/DriverFiredLogResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "driverFiredLog is not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "driverFiredLog is not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "driverFiredLog"
+                ],
+                "summary": "Create driverFiredLog",
+                "description": "Create new driverFiredLog",
+                "operationId": "createdriverFiredLog",
+                "requestBody": {
+                    "description": "Send data to create a new driverFiredLog",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "user": {
+                                        "$ref": "#/components/schemas/DriverFiredLogCreateRequest"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "task": {
+                                            "$ref": "#/components/schemas/DriverFiredLogResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error when creating driverFiredLog",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error when creating driverFiredLog"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "driverFiredLog"
+                ],
+                "summary": "Delete driverFiredLog by id",
+                "description": "Delete driverFiredLog by id",
+                "operationId": "deletedriverFiredLog",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of driverFiredLog",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "driverFiredLog": {
+                                            "$ref": "#/components/schemas/DriverFiredLogResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "driverFiredLog is not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "driverFiredLog class is not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "driverFiredLog"
+                ],
+                "summary": "Update driverFiredLog",
+                "description": "Update driverFiredLog",
+                "operationId": "updatedriverFiredLog",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of driverFiredLog",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Send data to update a driverFiredLog",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "driverFiredLog": {
+                                        "$ref": "#/components/schemas/DriverFiredLogUpdateRequest"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "driverFiredLog": {
+                                            "$ref": "#/components/schemas/DriverFiredLogResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "driverFiredLog is not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "driverFiredLog is not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error when updating driverFiredLog",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error when updating driverFiredLog"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/drivingLicence": {
+            "get": {
+                "tags": [
+                    "drivingLicence"
+                ],
+                "summary": "Get list of drivingLicence",
+                "operationId": "18f031871c05428a1099296aabf7e274",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized user"
+                    },
+                    "400": {
+                        "description": "drivingLicence isn't found"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/drivingLicence/{id}": {
+            "get": {
+                "tags": [
+                    "drivingLicence"
+                ],
+                "summary": "Get drivingLicence by id",
+                "description": "Get drivingLicence by id",
+                "operationId": "getdrivingLicence",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of drivingLicence class",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "drivingLicence": {
+                                            "$ref": "#/components/schemas/DrivingLicenceResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "drivingLicence is not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "drivingLicence is not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "drivingLicence"
+                ],
+                "summary": "Create drivingLicence",
+                "description": "Create new drivingLicence",
+                "operationId": "createdrivingLicence",
+                "requestBody": {
+                    "description": "Send data to create a new drivingLicence",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "user": {
+                                        "$ref": "#/components/schemas/DrivingLicenceCreateRequest"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "task": {
+                                            "$ref": "#/components/schemas/DrivingLicenceResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error when creating drivingLicence",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error when creating drivingLicence"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "drivingLicence"
+                ],
+                "summary": "Delete drivingLicence by id",
+                "description": "Delete drivingLicence by id",
+                "operationId": "deletedrivingLicence",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of drivingLicence",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "drivingLicence": {
+                                            "$ref": "#/components/schemas/DrivingLicenceResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "drivingLicence is not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "drivingLicence class is not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "drivingLicence"
+                ],
+                "summary": "Update drivingLicence",
+                "description": "Update drivingLicence",
+                "operationId": "updatedrivingLicence",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of drivingLicence",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Send data to update a drivingLicence",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "drivingLicence": {
+                                        "$ref": "#/components/schemas/DrivingLicenceUpdateRequest"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "drivingLicence": {
+                                            "$ref": "#/components/schemas/DrivingLicenceResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "drivingLicence is not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "drivingLicence is not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error when updating drivingLicence",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error when updating drivingLicence"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/lead": {
+            "get": {
+                "tags": [
+                    "lead"
+                ],
+                "summary": "Get list of leads",
+                "operationId": "51bd83670471edc2a5923235c85a0d95",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized user"
+                    },
+                    "400": {
+                        "description": "workingShift isn't found"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/lead/{id}": {
+            "get": {
+                "tags": [
+                    "lead"
+                ],
+                "summary": "Get lead by id",
+                "description": "Get lead by id",
+                "operationId": "getlead",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of lead",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "lead": {
+                                            "$ref": "#/components/schemas/LeadResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "lead is not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "lead is not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "lead"
+                ],
+                "summary": "Create lead",
+                "description": "Create new lead",
+                "operationId": "createlead",
+                "requestBody": {
+                    "description": "Send data to create a new lead",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "user": {
+                                        "$ref": "#/components/schemas/LeadCreateRequest"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "task": {
+                                            "$ref": "#/components/schemas/LeadResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error when creating order",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error when creating lead"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "lead"
+                ],
+                "summary": "Delete lead by id",
+                "description": "Delete lead by id",
+                "operationId": "deletelead",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of lead",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "lead": {
+                                            "$ref": "#/components/schemas/LeadResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "lead is not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "lead class is not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "lead"
+                ],
+                "summary": "Update lead",
+                "description": "Update lead",
+                "operationId": "updatelead",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of lead",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Send data to update a lead",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "lead": {
+                                        "$ref": "#/components/schemas/LeadUpdateRequest"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "lead": {
+                                            "$ref": "#/components/schemas/LeadResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "lead is not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "lead is not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error when updating lead",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error when updating lead"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/order": {
+            "get": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "Get list of order",
+                "operationId": "b459854003e608556bb3cb6fea8411b0",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized user"
+                    },
+                    "400": {
+                        "description": "order isn't found"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/order/{id}": {
+            "get": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "Get order by id",
+                "description": "Get order by id",
+                "operationId": "getorder",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of order class",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "order": {
+                                            "$ref": "#/components/schemas/OrderResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "order is not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "order is not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "Create order",
+                "description": "Create new order",
+                "operationId": "createorder",
+                "requestBody": {
+                    "description": "Send data to create a new order",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "user": {
+                                        "$ref": "#/components/schemas/OrderCreateRequest"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "task": {
+                                            "$ref": "#/components/schemas/OrderResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error when creating order",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error when creating order"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "Delete order by id",
+                "description": "Delete order by id",
+                "operationId": "deleteorder",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of order",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "order": {
+                                            "$ref": "#/components/schemas/OrderResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "order is not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "order class is not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "Update order",
+                "description": "Update order",
+                "operationId": "updateorder",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of order",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Send data to update a order",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "order": {
+                                        "$ref": "#/components/schemas/OrderUpdateRequest"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "order": {
+                                            "$ref": "#/components/schemas/OrderResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "order is not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "order is not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error when updating order",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error when updating order"
                                         }
                                     },
                                     "type": "object"
@@ -1149,6 +4407,368 @@
                     }
                 ]
             }
+        },
+        "/api/workingShift": {
+            "get": {
+                "tags": [
+                    "workingShift"
+                ],
+                "summary": "Get list of workingShift",
+                "operationId": "fc4c648ef7fd5b0827d497ac39cfa283",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized user"
+                    },
+                    "400": {
+                        "description": "workingShift isn't found"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/workingShift/{id}": {
+            "get": {
+                "tags": [
+                    "workingShift"
+                ],
+                "summary": "Get workingShift by id",
+                "description": "Get workingShift by id",
+                "operationId": "getworkingShift",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of workingShift class",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "workingShift": {
+                                            "$ref": "#/components/schemas/WorkingShiftResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "workingShift is not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "workingShift is not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "workingShift"
+                ],
+                "summary": "Create workingShift",
+                "description": "Create new workingShift",
+                "operationId": "createworkingShift",
+                "requestBody": {
+                    "description": "Send data to create a new workingShift",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "user": {
+                                        "$ref": "#/components/schemas/WorkingShiftCreateRequest"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "task": {
+                                            "$ref": "#/components/schemas/WorkingShiftResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error when creating workingShift",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error when creating workingShift"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "workingShift"
+                ],
+                "summary": "Delete workingShift by id",
+                "description": "Delete workingShift by id",
+                "operationId": "deleteworkingShift",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of workingShift",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "workingShift": {
+                                            "$ref": "#/components/schemas/WorkingShiftResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "workingShift is not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "workingShift class is not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "workingShift"
+                ],
+                "summary": "Update workingShift",
+                "description": "Update workingShift",
+                "operationId": "updateworkingShift",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of workingShift",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Send data to update a workingShift",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "workingShift": {
+                                        "$ref": "#/components/schemas/WorkingShiftUpdateRequest"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "workingShift": {
+                                            "$ref": "#/components/schemas/WorkingShiftResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "workingShift is not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "workingShift is not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error when updating workingShift",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error when updating workingShift"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -1209,6 +4829,124 @@
                 "type": "object",
                 "xml": {
                     "name": "CarClassUpdateRequest"
+                }
+            },
+            "CarCreateRequest": {
+                "required": [
+                    "car_number",
+                    "car_mark",
+                    "car_class_id",
+                    "company_id"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "car_number": {
+                        "type": "string",
+                        "example": "е734са164"
+                    },
+                    "car_mark": {
+                        "type": "string",
+                        "example": "skoda octavia"
+                    },
+                    "car_class_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "company_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "CarCreateRequest"
+                }
+            },
+            "CarReparingLogCreateRequest": {
+                "required": [
+                    "car_id",
+                    "end_date"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "car_id": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "end_date": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "CarReparingLogCreateRequest"
+                }
+            },
+            "CarReparingLogUpdateRequest": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "car_id": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "end_date": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "CarReparingLogUpdateRequest"
+                }
+            },
+            "CarUpdateRequest": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "car_number": {
+                        "type": "string",
+                        "example": "е734са164"
+                    },
+                    "car_mark": {
+                        "type": "string",
+                        "example": "skoda octavia"
+                    },
+                    "car_class_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "company_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "CarUpdateRequest"
                 }
             },
             "ClientCreateRequest": {
@@ -1316,6 +5054,593 @@
                 "type": "object",
                 "xml": {
                     "name": "ClientUpdateRequest"
+                }
+            },
+            "CompanyCreateRequest": {
+                "required": [
+                    "name",
+                    "inn",
+                    "phone_number",
+                    "email",
+                    "representing_person_secondname",
+                    "representing_person_firstname"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "OOO Авто"
+                    },
+                    "representing_person_secondname": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иванов"
+                    },
+                    "representing_person_firstname": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иван"
+                    },
+                    "patronymic": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иванович"
+                    },
+                    "phone_number": {
+                        "description": "User unique phone number",
+                        "type": "string",
+                        "readOnly": "false",
+                        "example": "+79603639696"
+                    },
+                    "email": {
+                        "description": "User unique email address",
+                        "type": "string",
+                        "format": "email",
+                        "readOnly": "false",
+                        "example": "user@gmail.com"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "CompanyCreateRequest"
+                }
+            },
+            "CompanyUpdateRequest": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "OOO Авто"
+                    },
+                    "representing_person_secondname": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иванов"
+                    },
+                    "representing_person_firstname": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иван"
+                    },
+                    "patronymic": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иванович"
+                    },
+                    "phone_number": {
+                        "description": "User unique phone number",
+                        "type": "string",
+                        "readOnly": "false",
+                        "example": "+79603639696"
+                    },
+                    "email": {
+                        "description": "User unique email address",
+                        "type": "string",
+                        "format": "email",
+                        "readOnly": "false",
+                        "example": "user@gmail.com"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "CompanyUpdateRequest"
+                }
+            },
+            "DepartamentCreateRequest": {
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "отдел маркетинга"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "DepartamentCreateRequest"
+                }
+            },
+            "DepartamentUpdateRequest": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "отдел маркетинга"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "DepartamentUpdateRequest"
+                }
+            },
+            "DriverCreateRequest": {
+                "required": [
+                    "firstname",
+                    "secondname",
+                    "date_hired",
+                    "driving_licence_id",
+                    "rating"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "secondname": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иванов"
+                    },
+                    "firstname": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иван"
+                    },
+                    "patronymic": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иванович"
+                    },
+                    "date_hired": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "date_fired": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "rating": {
+                        "type": "number",
+                        "format": "double",
+                        "readOnly": "true",
+                        "example": "4.8"
+                    },
+                    "driving_licence_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "DriverCreateRequest"
+                }
+            },
+            "DriverFiredLogCreateRequest": {
+                "required": [
+                    "driver_id",
+                    "date_hired",
+                    "date_fired"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "date_hired": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "date_fired": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "driver_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "DriverFiredLogCreateRequest"
+                }
+            },
+            "DriverFiredLogUpdateRequest": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "date_hired": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "date_fired": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "driver_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "DriverFiredLogUpdateRequest"
+                }
+            },
+            "DriverUpdateRequest": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "secondname": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иванов"
+                    },
+                    "firstname": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иван"
+                    },
+                    "patronymic": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иванович"
+                    },
+                    "date_hired": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "date_fired": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "rating": {
+                        "type": "number",
+                        "format": "double",
+                        "readOnly": "true",
+                        "example": "4.8"
+                    },
+                    "driving_licence_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "DriverUpdateRequest"
+                }
+            },
+            "DrivingLicenceCreateRequest": {
+                "required": [
+                    "category",
+                    "driving_licence_series",
+                    "driving_licence_number",
+                    "driving_getting",
+                    "driving_deprivation"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "category": {
+                        "type": "string",
+                        "example": "a"
+                    },
+                    "driving_licence_series": {
+                        "type": "string",
+                        "example": "466545646"
+                    },
+                    "driving_licence_number": {
+                        "type": "string",
+                        "example": "566655"
+                    },
+                    "driving_getting": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "driving_deprivation": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "driving_licence_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "DrivingLicenceCreateRequest"
+                }
+            },
+            "DrivingLicenceUpdateRequest": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "category": {
+                        "type": "string",
+                        "example": "a"
+                    },
+                    "driving_licence_series": {
+                        "type": "string",
+                        "example": "466545646"
+                    },
+                    "driving_licence_number": {
+                        "type": "string",
+                        "example": "566655"
+                    },
+                    "driving_getting": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "driving_deprivation": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "driving_licence_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "DrivingLicenceUpdateRequest"
+                }
+            },
+            "LeadCreateRequest": {
+                "required": [
+                    "client_id",
+                    "address_from",
+                    "address_to"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "address_from": {
+                        "type": "string",
+                        "example": "г. Саратов, Политехническая, 17"
+                    },
+                    "address_to": {
+                        "type": "string",
+                        "example": "г. Саратов, Политехническая, 18"
+                    },
+                    "comment": {
+                        "type": "text",
+                        "example": "dasadsadsasdasdasdas"
+                    },
+                    "client_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "car_class_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "Ожидание"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "LeadCreateRequest"
+                }
+            },
+            "LeadUpdateRequest": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "address_from": {
+                        "type": "string",
+                        "example": "г. Саратов, Политехническая, 17"
+                    },
+                    "address_to": {
+                        "type": "string",
+                        "example": "г. Саратов, Политехническая, 18"
+                    },
+                    "comment": {
+                        "type": "text",
+                        "example": "dasadsadsasdasdasdas"
+                    },
+                    "client_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "car_class_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "Ожидание"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "LeadUpdateRequest"
+                }
+            },
+            "OrderCreateRequest": {
+                "required": [
+                    "status",
+                    "working_shirt_id",
+                    "lead_id",
+                    "price",
+                    "rating",
+                    "date_start"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "Выполняется"
+                    },
+                    "working_shirt_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "lead_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "price": {
+                        "type": "biginteger",
+                        "example": "1200"
+                    },
+                    "rating": {
+                        "type": "number",
+                        "format": "double",
+                        "example": "4.8"
+                    },
+                    "date_start": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "date_end": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "OrderCreateRequest"
+                }
+            },
+            "OrderUpdateRequest": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "Выполняется"
+                    },
+                    "working_shirt_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "lead_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "price": {
+                        "type": "biginteger",
+                        "example": "1200"
+                    },
+                    "rating": {
+                        "type": "number",
+                        "format": "double",
+                        "example": "4.8"
+                    },
+                    "date_start": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "date_end": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "OrderUpdateRequest"
                 }
             },
             "UserCreateRequest": {
@@ -1450,6 +5775,91 @@
                     "name": "UserUpdateRequest"
                 }
             },
+            "WorkingShiftCreateRequest": {
+                "required": [
+                    "name",
+                    "driver_id",
+                    "car_id",
+                    "driver_location",
+                    "date_start"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "driver_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "car_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "driver_location": {
+                        "type": "string",
+                        "example": "Ленинский"
+                    },
+                    "date_start": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "date_end": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "WorkingShiftCreateRequest"
+                }
+            },
+            "WorkingShiftUpdateRequest": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "driver_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "car_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "driver_location": {
+                        "type": "string",
+                        "example": "Ленинский"
+                    },
+                    "date_start": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "date_end": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "WorkingShiftUpdateRequest"
+                }
+            },
             "CarClassResource": {
                 "required": [
                     "name",
@@ -1477,6 +5887,70 @@
                 "type": "object",
                 "xml": {
                     "name": "CarClassResource"
+                }
+            },
+            "CarReparingLogResource": {
+                "required": [
+                    "car_id",
+                    "end_date"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "car_id": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "end_date": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "CarReparingLogResource"
+                }
+            },
+            "CarResource": {
+                "required": [
+                    "car_number",
+                    "car_mark",
+                    "car_class_id",
+                    "company_id"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "car_number": {
+                        "type": "string",
+                        "example": "е734са164"
+                    },
+                    "car_mark": {
+                        "type": "string",
+                        "example": "skoda octavia"
+                    },
+                    "car_class_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "company_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "CarResource"
                 }
             },
             "ClientResource": {
@@ -1532,6 +6006,276 @@
                     "name": "UserResource"
                 }
             },
+            "CompanyResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "OOO Авто"
+                    },
+                    "representing_person_secondname": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иванов"
+                    },
+                    "representing_person_firstname": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иван"
+                    },
+                    "patronymic": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иванович"
+                    },
+                    "phone_number": {
+                        "description": "User unique phone number",
+                        "type": "string",
+                        "readOnly": "false",
+                        "example": "+79603639696"
+                    },
+                    "email": {
+                        "description": "User unique email address",
+                        "type": "string",
+                        "format": "email",
+                        "readOnly": "false",
+                        "example": "user@gmail.com"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "CompanyResource"
+                }
+            },
+            "DepartamentResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "отдел маркетинга"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "DepartamentResource"
+                }
+            },
+            "DriverFiredLogResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "date_hired": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "date_fired": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "driver_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "DriverFiredLog"
+                }
+            },
+            "DriverResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "secondname": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иванов"
+                    },
+                    "firstname": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иван"
+                    },
+                    "patronymic": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иванович"
+                    },
+                    "date_hired": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "date_fired": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "rating": {
+                        "type": "number",
+                        "format": "double",
+                        "readOnly": "true",
+                        "example": "4.8"
+                    },
+                    "driving_licence_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "DriverResource"
+                }
+            },
+            "DrivingLicenceResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "category": {
+                        "type": "string",
+                        "example": "a"
+                    },
+                    "driving_licence_series": {
+                        "type": "string",
+                        "example": "466545646"
+                    },
+                    "driving_licence_number": {
+                        "type": "string",
+                        "example": "566655"
+                    },
+                    "driving_getting": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "driving_deprivation": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "driving_licence_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "DrivingLicenceResource"
+                }
+            },
+            "LeadResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "address_from": {
+                        "type": "string",
+                        "example": "г. Саратов, Политехническая, 17"
+                    },
+                    "address_to": {
+                        "type": "string",
+                        "example": "г. Саратов, Политехническая, 18"
+                    },
+                    "comment": {
+                        "type": "text",
+                        "example": "dasadsadsasdasdasdas"
+                    },
+                    "client": {
+                        "type": "#/definitions/ClientResource"
+                    },
+                    "car_class_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "Ожидание"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "LeadResource"
+                }
+            },
+            "OrderResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "Выполняется"
+                    },
+                    "working_shirt_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "lead_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "price": {
+                        "type": "biginteger",
+                        "example": "1200"
+                    },
+                    "rating": {
+                        "type": "number",
+                        "format": "double",
+                        "example": "4.8"
+                    },
+                    "date_start": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "date_end": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "OrderResource"
+                }
+            },
             "UserResource": {
                 "required": [
                     "firstname",
@@ -1585,6 +6329,45 @@
                 "type": "object",
                 "xml": {
                     "name": "UserResource"
+                }
+            },
+            "WorkingShiftResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "driver_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "car_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "driver_location": {
+                        "type": "string",
+                        "example": "Ленинский"
+                    },
+                    "date_start": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "date_end": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "WorkingShiftResource"
                 }
             },
             "Car": {
@@ -2108,10 +6891,6 @@
                     "address_to": {
                         "type": "string",
                         "example": "г. Саратов, Политехническая, 18"
-                    },
-                    "driving_licence_number": {
-                        "type": "string",
-                        "example": "566655"
                     },
                     "comment": {
                         "type": "text",

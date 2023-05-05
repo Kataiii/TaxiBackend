@@ -4,25 +4,25 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Resources\CarClassResource;
-use App\Models\CarClass;
-use App\Http\Requests\CarClassCreateRequest;
-use App\Http\Requests\CarClassUpdateRequest;
+use App\Http\Resources\CompanyResource;
+use App\Models\Company;
+use App\Http\Requests\CompanyCreateRequest;
+use App\Http\Requests\CompanyUpdateRequest;
 
-class CarClassController extends Controller
+class CompanyController extends Controller
 {
     /**
      * @OA\Get(
-     *     path="/api/carClass",
-     *     summary="Get list of car classes",
-     *     tags={"carClass"},
+     *     path="/api/company",
+     *     summary="Get list of company",
+     *     tags={"company"},
      *     security={ {"sanctum": {} }},
      *     @OA\Response(
      *         response=200,
      *         description="successful operation",
      *         @OA\Schema(
      *             type="array",
-     *             @OA\Items(ref="#/definitions/CarClassResource")
+     *             @OA\Items(ref="#/definitions/CompanyResource")
      *         ),
      *     ),
      *     @OA\Response(
@@ -31,38 +31,38 @@ class CarClassController extends Controller
      *     ),
      *     @OA\Response(
      *         response="400",
-     *         description="Car classes isn't found",
+     *         description="Company isn't found",
      *     )
      * )
      */
     public function index()
     {
-        if(count(CarClass::all()) == 0){
-            return response(['Message'=>'Can\'t find car class'], 400);
+        if(count(Company::all()) == 0){
+            return response(['Message'=>'Can\'t find company'], 400);
         }
-        return CarClassResource::collection(CarClass::all());
+        return CompanyResource::collection(Company::all());
     }
 
     /**
      * @OA\Post(
-     * path="/api/carClass/{id}",
-     * summary="Create car class",
-     * description="Create new car class",
-     * operationId="createCarClass",
-     * tags={"carClass"},
+     * path="/api/company/{id}",
+     * summary="Create company",
+     * description="Create new company",
+     * operationId="createCompany",
+     * tags={"company"},
      * security={ {"sanctum": {} }},
      * @OA\RequestBody(
      *    required=true,
-     *    description="Send data to create a new car class",
+     *    description="Send data to create a new company",
      *    @OA\JsonContent(
-     *       @OA\Property(property="user", type="object", ref="#/components/schemas/CarClassCreateRequest"),
+     *       @OA\Property(property="user", type="object", ref="#/components/schemas/CompanyCreateRequest"),
      *    ),
      * ),
      * @OA\Response(
      *     response=201,
      *     description="Success",
      *     @OA\JsonContent(
-     *        @OA\Property(property="task", type="object", ref="#/components/schemas/CarClassResource"),
+     *        @OA\Property(property="task", type="object", ref="#/components/schemas/CompanyResource"),
      *     )
      *  ),
      * @OA\Response(
@@ -74,21 +74,21 @@ class CarClassController extends Controller
      *     ),
      * @OA\Response(
      *      response="500",
-     *      description="Error when creating carClass",
+     *      description="Error when creating Company",
      *      @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Error when creating carClass")
+     *       @OA\Property(property="message", type="string", example="Error when creating Company")
      *          )
      *      )
      * )
      */
-    public function store(CarClassCreateRequest $request)
+    public function store(CompanyCreateRequest $request)
     {
         try {
-            $new_car_class = CarClass::create($request->validated());
-            return response([new CarClassResource($new_car_class)], 201);
+            $new_company = Company::create($request->validated());
+            return response([new CompanyResource($c)], 201);
         }catch (\Exception $e) {
              return response([
-                'Message'=>'Error when creating car class. Please, try again',
+                'Message'=>'Error when creating company. Please, try again',
                 'Error' => $e
             ], 500);
         }
@@ -96,14 +96,14 @@ class CarClassController extends Controller
 
         /**
      * @OA\Get(
-     * path="/api/carClass/{id}",
-     * summary="Get car class by id",
-     * description="Get car class by id",
-     * operationId="getCarClass",
-     * tags={"carClass"},
+     * path="/api/company/{id}",
+     * summary="Get company by id",
+     * description="Get company by id",
+     * operationId="getCompany",
+     * tags={"company"},
      * security={ {"sanctum": {}}},
      * @OA\Parameter(
-     *    description="ID of car class",
+     *    description="ID of company class",
      *    in="path",
      *    name="id",
      *    required=true,
@@ -117,14 +117,14 @@ class CarClassController extends Controller
      *     response=200,
      *     description="Success",
      *     @OA\JsonContent(
-     *        @OA\Property(property="carClass", type="object", ref="#/components/schemas/CarClassResource"),
+     *        @OA\Property(property="Company", type="object", ref="#/components/schemas/CompanyResource"),
      *     )
      *  ),
      * @OA\Response(
      *      response="400",
-     *      description="Car class is not found",
+     *      description="Company is not found",
      *      @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Car class is not found")
+     *       @OA\Property(property="message", type="string", example="Company is not found")
      *    )
      * )
      * ,
@@ -140,14 +140,14 @@ class CarClassController extends Controller
     public function show(string $id)
     {
         try {
-            $carClass = CarClass::find($id);
-            if($carClass != null){
-                return response([new CarClassResource($carClass)], 200);
+            $company = Company::find($id);
+            if($company != null){
+                return response([new CompanyResource($company)], 200);
             }
-            return response(['Message'=>'Can\'t find car class by id'], 400);
+            return response(['Message'=>'Can\'t find company by id'], 400);
         }catch (\Exception $e) {
             return response([
-                'Message'=>'Error when finding car class. Please, try again',
+                'Message'=>'Error when finding company. Please, try again',
                 'Error' => $e
             ], 500);
         }
@@ -155,14 +155,14 @@ class CarClassController extends Controller
 
        /**
      * @OA\Patch(
-     * path="/api/carClass/{id}",
-     * summary="Update car class",
-     * description="Update car class",
-     * operationId="updateCarClass",
-     * tags={"carClass"},
+     * path="/api/company/{id}",
+     * summary="Update company",
+     * description="Update company",
+     * operationId="updateCompany",
+     * tags={"company"},
      * security={ {"sanctum": {} }},
      * @OA\Parameter(
-     *    description="ID of car class",
+     *    description="ID of company",
      *    in="path",
      *    name="id",
      *    required=true,
@@ -174,23 +174,23 @@ class CarClassController extends Controller
      * ),
      * @OA\RequestBody(
      *    required=true,
-     *    description="Send data to update a car class",
+     *    description="Send data to update a company",
      *    @OA\JsonContent(
-     *       @OA\Property(property="carClass", type="object", ref="#/components/schemas/CarClassUpdateRequest"),
+     *       @OA\Property(property="Company", type="object", ref="#/components/schemas/CompanyUpdateRequest"),
      *    ),
      * ),
      * @OA\Response(
      *     response=201,
      *     description="Success",
      *     @OA\JsonContent(
-     *        @OA\Property(property="carClass", type="object", ref="#/components/schemas/CarClassResource"),
+     *        @OA\Property(property="Company", type="object", ref="#/components/schemas/CompanyResource"),
      *     )
      *  ),
      * @OA\Response(
      *      response="400",
-     *      description="Car class is not found",
+     *      description="Company is not found",
      *      @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Car class is not found")
+     *       @OA\Property(property="message", type="string", example="Company is not found")
      *    )
      * )
      * ,
@@ -203,25 +203,25 @@ class CarClassController extends Controller
      *     ),
      * @OA\Response(
      *      response="500",
-     *      description="Error when updating car class",
+     *      description="Error when updating company",
      *      @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Error when updating car class")
+     *       @OA\Property(property="message", type="string", example="Error when updating company")
      *          )
      *      )
      * )
      */
-    public function update(CarClassUpdateRequest $request, string $id)
+    public function update(CompanyUpdateRequest $request, string $id)
     {
         try{
-            $car_class = CarClass::find($id);
-            if($car_class == null){
-                return response(['Message'=>'Can\'t find a car class with this id'], 400);
+            $company = Company::find($id);
+            if($company == null){
+                return response(['Message'=>'Can\'t find a company with this id'], 400);
             }
-            $car_class->update($request->validated());
-            return response([new CarClassResource($carClass)], 201);
+            $company->update($request->validated());
+            return response([new CompanyResource($company)], 201);
         } catch(\Exception $e){
            return response([
-               'Message'=>'Error when updating car class. Please, try again',
+               'Message'=>'Error when updating Company. Please, try again',
                'Error' => $e
            ], 500);
         }
@@ -229,14 +229,14 @@ class CarClassController extends Controller
 
         /**
      * @OA\Delete(
-     * path="/api/carClass/{id}",
-     * summary="Delete car class by id",
-     * description="Delete car class by id",
-     * operationId="deleteCarClass",
-     * tags={"carClass"},
+     * path="/api/company/{id}",
+     * summary="Delete company by id",
+     * description="Delete company by id",
+     * operationId="deleteCompany",
+     * tags={"company"},
      * security={ {"sanctum": {} }},
      * @OA\Parameter(
-     *    description="ID of car class",
+     *    description="ID of Company",
      *    in="path",
      *    name="id",
      *    required=true,
@@ -250,14 +250,14 @@ class CarClassController extends Controller
      *     response=201,
      *     description="Success",
      *     @OA\JsonContent(
-     *        @OA\Property(property="carClass", type="object", ref="#/components/schemas/CarClassResource"),
+     *        @OA\Property(property="Company", type="object", ref="#/components/schemas/CompanyResource"),
      *     )
      *  ),
      * @OA\Response(
      *      response="404",
-     *      description="Car class is not found",
+     *      description="Company is not found",
      *      @OA\JsonContent(
-     *       @OA\Property(property="message", type="string", example="Car class is not found")
+     *       @OA\Property(property="message", type="string", example="Company class is not found")
      *    )
      * )
      * ,
@@ -273,11 +273,11 @@ class CarClassController extends Controller
      */
     public function destroy(string $id)
     {
-        $carClass = CarClass::find($id);
-        if($carClass == null){
-            return response(['Message'=>'Can\'t find a car class with this id'], 400);
+        $company = Company::find($id);
+        if($company == null){
+            return response(['Message'=>'Can\'t find a company with this id'], 400);
         }
-        $carClass->delete();
-        return response([new CarClassResource($carClass)], 201);
+        $company->delete();
+        return response([new CompanyResource($company)], 201);
     }
 }
