@@ -44,7 +44,42 @@ class CarClassController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     * path="/api/carClass/{id}",
+     * summary="Create car class",
+     * description="Create new car class",
+     * operationId="createCarClass",
+     * tags={"carClass"},
+     * security={ {"sanctum": {} }},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Send data to create a new car class",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="user", type="object", ref="#/components/schemas/CarClassCreateRequest"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *     response=201,
+     *     description="Success",
+     *     @OA\JsonContent(
+     *        @OA\Property(property="task", type="object", ref="#/components/schemas/CarClassResource"),
+     *     )
+     *  ),
+     * @OA\Response(
+     *      response="401",
+     *      description="Unauthorized user",
+     *     @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Unauthorized")
+     *        )
+     *     ),
+     * @OA\Response(
+     *      response="500",
+     *      description="Error when creating carClass",
+     *      @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Error when creating carClass")
+     *          )
+     *      )
+     * )
      */
     public function store(CarClassCreateRequest $request)
     {
@@ -59,8 +94,48 @@ class CarClassController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
+        /**
+     * @OA\Get(
+     * path="/api/carClass/{id}",
+     * summary="Get car class by id",
+     * description="Get car class by id",
+     * operationId="getCarClass",
+     * tags={"carClass"},
+     * security={ {"sanctum": {}}},
+     * @OA\Parameter(
+     *    description="ID of car class",
+     *    in="path",
+     *    name="id",
+     *    required=true,
+     *    example="1",
+     *    @OA\Schema(
+     *       type="integer",
+     *       format="int64"
+     *    )
+     * ),
+     * @OA\Response(
+     *     response=200,
+     *     description="Success",
+     *     @OA\JsonContent(
+     *        @OA\Property(property="carClass", type="object", ref="#/components/schemas/CarClassResource"),
+     *     )
+     *  ),
+     * @OA\Response(
+     *      response="400",
+     *      description="Car class is not found",
+     *      @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Car class is not found")
+     *    )
+     * )
+     * ,
+     * @OA\Response(
+     *      response="401",
+     *      description="Unauthorized user",
+     *     @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Unauthorized")
+     *        )
+     *     )
+     * )
      */
     public function show(string $id)
     {
@@ -78,8 +153,62 @@ class CarClassController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
+       /**
+     * @OA\Patch(
+     * path="/api/carClass/{id}",
+     * summary="Update car class",
+     * description="Update car class",
+     * operationId="updateCarClass",
+     * tags={"carClass"},
+     * security={ {"sanctum": {} }},
+     * @OA\Parameter(
+     *    description="ID of car class",
+     *    in="path",
+     *    name="id",
+     *    required=true,
+     *    example="1",
+     *    @OA\Schema(
+     *       type="integer",
+     *       format="int64"
+     *    )
+     * ),
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Send data to update a car class",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="carClass", type="object", ref="#/components/schemas/CarClassUpdateRequest"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *     response=201,
+     *     description="Success",
+     *     @OA\JsonContent(
+     *        @OA\Property(property="carClass", type="object", ref="#/components/schemas/CarClassResource"),
+     *     )
+     *  ),
+     * @OA\Response(
+     *      response="400",
+     *      description="Car class is not found",
+     *      @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Car class is not found")
+     *    )
+     * )
+     * ,
+     * @OA\Response(
+     *      response="401",
+     *      description="Unauthorized user",
+     *     @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Unauthorized")
+     *        )
+     *     ),
+     * @OA\Response(
+     *      response="500",
+     *      description="Error when updating car class",
+     *      @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Error when updating car class")
+     *          )
+     *      )
+     * )
      */
     public function update(CarClassUpdateRequest $request, string $id)
     {
@@ -89,7 +218,7 @@ class CarClassController extends Controller
                 return response(['Message'=>'Can\'t find a car class with this id'], 400);
             }
             $car_class->update($request->validated());
-            return response([new CarClassResource($client)], 201);
+            return response([new CarClassResource($carClass)], 201);
         } catch(\Exception $e){
            return response([
                'Message'=>'Error when updating car class. Please, try again',
@@ -98,8 +227,49 @@ class CarClassController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
+        /**
+     * @OA\Delete(
+     * path="/api/carClass/{id}",
+     * summary="Delete car class by id",
+     * description="Delete car class by id",
+     * operationId="deleteCarClass",
+     * tags={"carClass"},
+     * security={ {"sanctum": {} }},
+     * @OA\Parameter(
+     *    description="ID of car class",
+     *    in="path",
+     *    name="id",
+     *    required=true,
+     *    example="1",
+     *    @OA\Schema(
+     *       type="integer",
+     *       format="int64"
+     *    )
+     * ),
+     * @OA\Response(
+     *     response=201,
+     *     description="Success",
+     *     @OA\JsonContent(
+     *        @OA\Property(property="carClass", type="object", ref="#/components/schemas/CarClassResource"),
+     *     )
+     *  ),
+     * @OA\Response(
+     *      response="404",
+     *      description="Car class is not found",
+     *      @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Car class is not found")
+     *    )
+     * )
+     * ,
+     * @OA\Response(
+     *      response="401",
+     *      description="Unauthorized user",
+     *     @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Unauthorized")
+     *        )
+     *     )
+     *
+     * )
      */
     public function destroy(string $id)
     {
