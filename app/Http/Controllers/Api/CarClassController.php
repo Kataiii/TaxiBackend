@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -12,7 +12,28 @@ use App\Http\Requests\CarClassUpdateRequest;
 class CarClassController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/api/carClass",
+     *     summary="Get list of car classes",
+     *     tags={"carClass"},
+     *     security={ {"sanctum": {} }},
+     *     @OA\Response(
+     *         response=200,
+     *         description="successful operation",
+     *         @OA\Schema(
+     *             type="array",
+     *             @OA\Items(ref="#/definitions/CarClassResource")
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response="401",
+     *         description="Unauthorized user",
+     *     ),
+     *     @OA\Response(
+     *         response="400",
+     *         description="Car classes isn't found",
+     *     )
+     * )
      */
     public function index()
     {

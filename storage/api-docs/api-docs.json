@@ -64,6 +64,31 @@
                 }
             }
         },
+        "/api/carClass": {
+            "get": {
+                "tags": [
+                    "carClass"
+                ],
+                "summary": "Get list of car classes",
+                "operationId": "d4d9365b89fe15ea253cb8c3731f4e75",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthorized user"
+                    },
+                    "400": {
+                        "description": "Car classes isn't found"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
         "/api/clients": {
             "get": {
                 "tags": [
@@ -1030,6 +1055,35 @@
                     "name": "UserUpdateRequest"
                 }
             },
+            "CarClassResource": {
+                "required": [
+                    "name",
+                    "priority"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "комфорт"
+                    },
+                    "description": {
+                        "type": "text",
+                        "example": "sdfsfsaffafadafsfasd"
+                    },
+                    "priority": {
+                        "type": "integer",
+                        "example": "2"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "CarClassResource"
+                }
+            },
             "ClientResource": {
                 "required": [
                     "firstname",
@@ -1138,6 +1192,141 @@
                     "name": "UserResource"
                 }
             },
+            "Car": {
+                "required": [
+                    "car_number",
+                    "car_mark",
+                    "car_class_id",
+                    "company_id"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "car_number": {
+                        "type": "string",
+                        "example": "е734са164"
+                    },
+                    "car_mark": {
+                        "type": "string",
+                        "example": "skoda octavia"
+                    },
+                    "car_class_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "company_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "created_at": {
+                        "description": "Datetime marker of create status",
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "updated_at": {
+                        "description": "Datetime marker of update status",
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Car"
+                }
+            },
+            "CarClass": {
+                "required": [
+                    "name",
+                    "priority"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "комфорт"
+                    },
+                    "description": {
+                        "type": "text",
+                        "example": "sdfsfsaffafadafsfasd"
+                    },
+                    "priority": {
+                        "type": "integer",
+                        "example": "2"
+                    },
+                    "created_at": {
+                        "description": "Datetime marker of create status",
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "updated_at": {
+                        "description": "Datetime marker of update status",
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "CarClass"
+                }
+            },
+            "CarReparingLog": {
+                "required": [
+                    "car_id",
+                    "end_date"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "car_id": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "end_date": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "created_at": {
+                        "description": "Datetime marker of create status",
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "updated_at": {
+                        "description": "Datetime marker of update status",
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "CarReparingLog"
+                }
+            },
             "Client": {
                 "required": [
                     "firstname",
@@ -1218,6 +1407,423 @@
                 "type": "object",
                 "xml": {
                     "name": "Client"
+                }
+            },
+            "Company": {
+                "required": [
+                    "name",
+                    "inn",
+                    "phone_number",
+                    "email",
+                    "representing_person_secondname",
+                    "representing_person_firstname"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "OOO Авто"
+                    },
+                    "representing_person_secondname": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иванов"
+                    },
+                    "representing_person_firstname": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иван"
+                    },
+                    "patronymic": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иванович"
+                    },
+                    "phone_number": {
+                        "description": "User unique phone number",
+                        "type": "string",
+                        "readOnly": "false",
+                        "example": "+79603639696"
+                    },
+                    "email": {
+                        "description": "User unique email address",
+                        "type": "string",
+                        "format": "email",
+                        "readOnly": "false",
+                        "example": "user@gmail.com"
+                    },
+                    "created_at": {
+                        "description": "Datetime marker of create status",
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "updated_at": {
+                        "description": "Datetime marker of update status",
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Company"
+                }
+            },
+            "Departament": {
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "отдел маркетинга"
+                    },
+                    "created_at": {
+                        "description": "Datetime marker of create status",
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "updated_at": {
+                        "description": "Datetime marker of update status",
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Departament"
+                }
+            },
+            "Driver": {
+                "required": [
+                    "firstname",
+                    "secondname",
+                    "date_hired",
+                    "driving_licence_id",
+                    "rating"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "secondname": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иванов"
+                    },
+                    "firstname": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иван"
+                    },
+                    "patronymic": {
+                        "type": "string",
+                        "maxLength": 32,
+                        "example": "Иванович"
+                    },
+                    "date_hired": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "date_fired": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "rating": {
+                        "type": "number",
+                        "format": "double",
+                        "readOnly": "true",
+                        "example": "4.8"
+                    },
+                    "driving_licence_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "created_at": {
+                        "description": "Datetime marker of create status",
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "updated_at": {
+                        "description": "Datetime marker of update status",
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Driver"
+                }
+            },
+            "DriverFiredLog": {
+                "required": [
+                    "driver_id",
+                    "date_hired",
+                    "date_fired"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "date_hired": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "date_fired": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "driver_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "created_at": {
+                        "description": "Datetime marker of create status",
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "updated_at": {
+                        "description": "Datetime marker of update status",
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "DriverFiredLog"
+                }
+            },
+            "DrivingLicence": {
+                "required": [
+                    "category",
+                    "driving_licence_series",
+                    "driving_licence_number",
+                    "driving_getting",
+                    "driving_deprivation"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "category": {
+                        "type": "string",
+                        "example": "a"
+                    },
+                    "driving_licence_series": {
+                        "type": "string",
+                        "example": "466545646"
+                    },
+                    "driving_licence_number": {
+                        "type": "string",
+                        "example": "566655"
+                    },
+                    "driving_getting": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "driving_deprivation": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "driving_licence_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "created_at": {
+                        "description": "Datetime marker of create status",
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "updated_at": {
+                        "description": "Datetime marker of update status",
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "DrivingLicence"
+                }
+            },
+            "Lead": {
+                "required": [
+                    "client_id",
+                    "address_from",
+                    "address_to"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "address_from": {
+                        "type": "string",
+                        "example": "г. Саратов, Политехническая, 17"
+                    },
+                    "address_to": {
+                        "type": "string",
+                        "example": "г. Саратов, Политехническая, 18"
+                    },
+                    "driving_licence_number": {
+                        "type": "string",
+                        "example": "566655"
+                    },
+                    "comment": {
+                        "type": "text",
+                        "example": "dasadsadsasdasdasdas"
+                    },
+                    "client_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "car_class_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "Ожидание"
+                    },
+                    "created_at": {
+                        "description": "Datetime marker of create status",
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "updated_at": {
+                        "description": "Datetime marker of update status",
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Lead"
+                }
+            },
+            "Order": {
+                "required": [
+                    "status",
+                    "working_shirt_id",
+                    "lead_id",
+                    "price",
+                    "rating",
+                    "date_start"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "Выполняется"
+                    },
+                    "working_shirt_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "lead_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "price": {
+                        "type": "biginteger",
+                        "example": "1200"
+                    },
+                    "rating": {
+                        "type": "number",
+                        "format": "double",
+                        "example": "4.8"
+                    },
+                    "date_start": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "date_end": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "created_at": {
+                        "description": "Datetime marker of create status",
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "updated_at": {
+                        "description": "Datetime marker of update status",
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Order"
                 }
             },
             "User": {
@@ -1309,6 +1915,66 @@
                 "type": "object",
                 "xml": {
                     "name": "User"
+                }
+            },
+            "WorkingShift": {
+                "required": [
+                    "name",
+                    "driver_id",
+                    "car_id",
+                    "driver_location",
+                    "date_start"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "driver_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "car_id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "driver_location": {
+                        "type": "string",
+                        "example": "Ленинский"
+                    },
+                    "date_start": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "date_end": {
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "created_at": {
+                        "description": "Datetime marker of create status",
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    },
+                    "updated_at": {
+                        "description": "Datetime marker of update status",
+                        "type": "string",
+                        "format": "date",
+                        "readOnly": "true",
+                        "example": "2019-02-25"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "WorkingShift"
                 }
             }
         },
