@@ -15,7 +15,6 @@ use App\Http\Resources\ClientResource;
  * @OA\Property(property="id", type="integer", readOnly="true", example="1"),
  * @OA\Property(property="address_from", type="string", example="г. Саратов, Политехническая, 17"),
  * @OA\Property(property="address_to", type="string",example="г. Саратов, Политехническая, 18"), 
- * @OA\Property(property="driving_licence_number", type="string",example="566655"),
  * @OA\Property(property="comment", type="text",example="dasadsadsasdasdasdas"),
  * @OA\Property(property="client_id", type="integer", readOnly="true", example="1"),
  * @OA\Property(property="car_class_id", type="integer", readOnly="true", example="1"),

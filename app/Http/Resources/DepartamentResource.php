@@ -5,21 +5,18 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-
 /**
  *
  * @OA\Schema(
- * required={"car_id", "end_date"},
- * @OA\Xml(name="CarReparingLogResource"),
+ * @OA\Xml(name="DepartamentResource"),
  * @OA\Property(property="id", type="integer", readOnly="true", example="1"),
- * @OA\Property(property="car_id", type="integer", example="1"),
- * @OA\Property(property="end_date",type="string", readOnly="true", format="date",example="2019-02-25"), 
+ * @OA\Property(property="name", type="string", example="отдел маркетинга"),
  * )
  *
- * Class CarReparingLogResource
+ * Class DepartamentResource
  *
  */
-class CarReparingLogResource extends JsonResource
+class DepartamentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -30,8 +27,7 @@ class CarReparingLogResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'car_id' => $this->car_id,
-            'end_date' => $this->end_date
+            'name' => $this->name
         ];
     }
 }
